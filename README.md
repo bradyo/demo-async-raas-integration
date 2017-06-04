@@ -26,9 +26,9 @@ The process is as follows:
 1. Save an Order to the database (See: [OrderService placeOrder method](https://github.com/bradyo/demo-async-raas-integration/blob/b96237fe25d9860cfef338718d632bf5ecc2fb55/src/main/java/demo/async_tangocard_integration/order/OrderService.java#L32))
 
     - Start database transaction
-    - Generate a unique public Order Reference Number to return to customers to track the order
+    - Generate a unique public Order Reference Number to return to customers and save to Order
     - Generate a unique RaaS externalID that ensures duplicate requests do not count as separate RaaS orders
-      (this might happen due to retry logic or networking issues) and save in Order
+      (this might happen due to retry logic or networking issues) and save to Order
     - Commit transaction
   
 2. Add the Order ID to a processing message queue
