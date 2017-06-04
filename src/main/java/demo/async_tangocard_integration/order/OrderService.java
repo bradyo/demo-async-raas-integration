@@ -16,6 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,7 @@ public class OrderService {
     private final MessageQueue<Long> orderMessageQueue;
     private final RaasClient raasClient;
     private final RaasSettings raasSettings;
+    private List<Order> orders;
 
     public Order placeOrder(User user, BigDecimal amount) {
         String referenceNumber = referenceNumberGenerator.generate();
@@ -106,5 +108,9 @@ public class OrderService {
         order.setTries(order.getTries() + 1);
 
         orderRepository.save(order);
+    }
+
+    public List<Order> getOrders() {
+        return orderRepository.findAllWithUsers();
     }
 }
