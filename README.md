@@ -55,7 +55,7 @@ The process is as follows:
 mvn spring-boot:run
 ```
 
-### Request
+### Create an Order
 
 ```bash
 curl -X POST http://localhost:8080/orders \
@@ -63,12 +63,6 @@ curl -X POST http://localhost:8080/orders \
 -d '{
   "amount": "100.00"
 }'
-```
-
-### Response
-
-```
-200 OK
 ```
 
 ```json
