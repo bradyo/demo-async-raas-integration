@@ -22,7 +22,7 @@ public class OrderController {
     private final OrderPostValidator orderPostValidator;
     private final OrderViewService orderViewService;
     
-    @GetMapping("/orders")
+    @GetMapping("/internal/orders")
     public List<FullOrderView> list() {
         return orderService.getOrders().stream()
             .map(orderViewService::createFullView)

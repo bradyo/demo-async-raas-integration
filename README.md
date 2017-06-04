@@ -1,4 +1,4 @@
-# Demo Async RaaS API Integration
+# Demo Async RaaS API Integration Application
 
 This application demonstrates a bulletproof asynchronous [Tango Card RaaS API](https://api.tangocard.com/raas/v2/) 
 integration.
@@ -71,10 +71,10 @@ curl -X POST http://localhost:8080/orders \
 }
 ```
 
-### Show All Order Data
+### Show Internal Order Data
 
 ```bash
-curl http://localhost:8080/orders
+curl http://localhost:8080/internal/orders
 ```
 
 ```json
