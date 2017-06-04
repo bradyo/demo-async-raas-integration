@@ -50,6 +50,9 @@ curl -X POST http://localhost:8080/orders \
 
 ```
 curl http://localhost:8080/orders
+```
+
+```
 [ {
   "amount" : 100.00,
   "tangoCardExternalId" : "ed0ef356-14b0-4137-81a8-c93bfbc879fb",
