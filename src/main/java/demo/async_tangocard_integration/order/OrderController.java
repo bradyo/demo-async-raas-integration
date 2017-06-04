@@ -1,5 +1,7 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.order;
 
+import demo.async_tangocard_integration.user.User;
+import demo.async_tangocard_integration.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,6 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderPostValidator orderPostValidator;
     private final OrderViewService orderViewService;
-    private final OrderProcessingService orderProcessingService;
     
     @GetMapping("/")
     public ResponseEntity<Void> get() {
@@ -31,7 +32,7 @@ public class OrderController {
         
         Order order = orderService.placeOrder(user, validatedOrderPost.getAmount());
         
-        orderProcessingService.queueOrder(order.getId());
+        orderService.queueOrder(order.getId());
         
         return orderViewService.createView(order);
     }

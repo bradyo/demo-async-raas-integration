@@ -1,7 +1,7 @@
 package demo.async_tangocard_integration.order_queue;
 
-import demo.async_tangocard_integration.OrderProcessingService;
-import demo.async_tangocard_integration.message_queue.MessageQueue;
+import demo.async_tangocard_integration.lib.message_queue.MessageQueue;
+import demo.async_tangocard_integration.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class OrderQueueWorker {
     
     private final MessageQueue<Long> orderMessageQueue;
-    private final OrderProcessingService orderProcessingService;
+    private final OrderService orderService;
     
     @Async
     public void startWorking() {
@@ -35,7 +35,7 @@ public class OrderQueueWorker {
             log.info("Order queue is empty... sleeping");
             sleep();
         } else {
-            orderProcessingService.processOrder(orderId);
+            orderService.processOrder(orderId);
         }
     }
     

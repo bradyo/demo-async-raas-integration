@@ -1,4 +1,4 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.order;
 
 import org.springframework.stereotype.Service;
 
@@ -10,4 +10,5 @@ public class OrderViewService {
         orderView.setReferenceNumber(order.getReferenceNumber());
         return orderView;
     }
+    
 }

@@ -1,4 +1,4 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

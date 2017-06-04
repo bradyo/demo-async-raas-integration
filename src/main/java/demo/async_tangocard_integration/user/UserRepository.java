@@ -1,4 +1,4 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.user;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

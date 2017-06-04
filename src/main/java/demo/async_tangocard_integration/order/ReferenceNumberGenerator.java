@@ -1,4 +1,4 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.order;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;

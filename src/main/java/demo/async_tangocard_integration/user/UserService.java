@@ -1,5 +1,6 @@
-package demo.async_tangocard_integration;
+package demo.async_tangocard_integration.user;
 
+import demo.async_tangocard_integration.config.StubUserSettings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
