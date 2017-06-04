@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 public class FullOrderView {
 
     private BigDecimal amount;
-    private String tangoCardExternalId;
-    private String tangoCardOrderRefId;
+    private String raasExternalId;
+    private String raasOrderRefId;
     private Integer tries;
     private String status;
 

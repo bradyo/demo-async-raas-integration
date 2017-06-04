@@ -17,8 +17,8 @@ public class OrderViewService {
         fullOrderView.setReferenceNumber(order.getReferenceNumber());
         fullOrderView.setAmount(order.getAmount());
         fullOrderView.setStatus(order.getStatus());
-        fullOrderView.setTangoCardExternalId(order.getTangoCardExternalId());
-        fullOrderView.setTangoCardOrderRefId(order.getTangoCardOrderRefId());
+        fullOrderView.setRaasExternalId(order.getRaasExternalId());
+        fullOrderView.setRaasOrderRefId(order.getRaasOrderRefId());
         fullOrderView.setTries(order.getTries());
 
         UserView userView = new UserView();

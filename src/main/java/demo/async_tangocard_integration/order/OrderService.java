@@ -42,7 +42,7 @@ public class OrderService {
         order.setTries(0);
         
         // Generate a unique externalId value that is used to de-dupe RaaS order requests.
-        order.setTangoCardExternalId(UUID.randomUUID().toString());
+        order.setRaasExternalId(UUID.randomUUID().toString());
         
         orderRepository.save(order);
         
@@ -64,7 +64,7 @@ public class OrderService {
         // Send the actual RaaS order request
         try {
             RaasOrderCriteria raasOrderCriteria = new RaasOrderCriteria();
-            raasOrderCriteria.setExternalRefID(order.getTangoCardExternalId());
+            raasOrderCriteria.setExternalRefID(order.getRaasExternalId());
             raasOrderCriteria.setCustomerIdentifier(raasSettings.getCustomerIdentifier());
             raasOrderCriteria.setAccountIdentifier(raasSettings.getAccountIdentifier());
             raasOrderCriteria.setUtid(raasSettings.getUtid());
@@ -80,7 +80,7 @@ public class OrderService {
             RaasOrder raasOrder = raasClient.postOrder(raasOrderCriteria);
 
             order.setStatus(OrderStatus.PROCESSED);
-            order.setTangoCardOrderRefId(raasOrder.getReferenceOrderID());
+            order.setRaasOrderRefId(raasOrder.getReferenceOrderID());
 
             log.info("Processed Raas order with orderRefID: " + raasOrder.getReferenceOrderID());
         }
