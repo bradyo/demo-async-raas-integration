@@ -59,7 +59,8 @@ mvn spring-boot:run
 
 ```bash
 curl -X POST http://localhost:8080/orders \
--H 'Content-type: application/json' -d '{
+-H 'Content-type: application/json' \
+-d '{
   "amount": "100.00"
 }'
 ```
