@@ -2,7 +2,6 @@ package demo.async_tangocard_integration.order;
 
 import demo.async_tangocard_integration.config.RaasSettings;
 import demo.async_tangocard_integration.user.User;
-import demo.async_tangocard_integration.lib.message_queue.MessageQueue;
 import demo.async_tangocard_integration.lib.raas_client.RaasClient;
 import demo.async_tangocard_integration.lib.raas_client.RaasOrder;
 import demo.async_tangocard_integration.lib.raas_client.RaasOrderCriteria;
@@ -27,12 +26,12 @@ public class OrderService {
     
     private final ReferenceNumberGenerator referenceNumberGenerator;
     private final OrderRepository orderRepository;
-    private final MessageQueue<Long> orderMessageQueue;
     private final RaasClient raasClient;
     private final RaasSettings raasSettings;
-    private List<Order> orders;
 
     public Order placeOrder(User user, BigDecimal amount) {
+        // This is our public facing order reference number. We might show this to the customer
+        // showing confirmation that the order has been placed.
         String referenceNumber = referenceNumberGenerator.generate();
         
         Order order = new Order();
@@ -50,12 +49,7 @@ public class OrderService {
         return order;
     }
 
-    public void queueOrder(Long orderId) {
-        orderMessageQueue.push(orderId);
-    }
-
     public void processOrder(Long orderId) {
-        // todo: find one for update (lock)
         Order order = orderRepository.findOneForUpdate(orderId);
         if (order == null) {
             log.info("Order not found with id = " + orderId);

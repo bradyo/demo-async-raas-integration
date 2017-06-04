@@ -18,6 +18,7 @@ public class OrderController {
     
     private final UserService userService;
     private final OrderService orderService;
+    private final OrderQueueService orderQueueService;
     private final OrderPostValidator orderPostValidator;
     private final OrderViewService orderViewService;
     
@@ -35,8 +36,8 @@ public class OrderController {
         ValidatedOrderPost validatedOrderPost = orderPostValidator.validate(orderPost);
         
         Order order = orderService.placeOrder(user, validatedOrderPost.getAmount());
-        
-        orderService.queueOrder(order.getId());
+
+        orderQueueService.queueOrder(order.getId());
         
         return orderViewService.createView(order);
     }

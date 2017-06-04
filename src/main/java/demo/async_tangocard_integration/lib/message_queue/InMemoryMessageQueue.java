@@ -11,16 +11,25 @@ public class InMemoryMessageQueue<T> implements MessageQueue<T> {
     private final ConcurrentLinkedQueue<T> queue;
 
     @Override
-    public void push(T item) {
-        queue.add(item);
+    public void addMessage(T message) {
+        queue.add(message);
     }
 
     @Override
-    public T pop() {
+    public T getMessage() {
         try {
-            return queue.remove();
+            return queue.peek();
         } catch (NoSuchElementException e) {
             return null;
+        }
+    }
+    
+    @Override
+    public void deleteMessage(T message) {
+        try {
+            queue.remove(message);
+        } catch (NoSuchElementException e) {
+            // Move along, nothing to see here...
         }
     }
 }

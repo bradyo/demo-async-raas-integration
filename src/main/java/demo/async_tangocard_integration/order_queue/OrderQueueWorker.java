@@ -30,13 +30,14 @@ public class OrderQueueWorker {
     }
     
     private void work() {
-        Long orderId = orderMessageQueue.pop();
+        Long orderId = orderMessageQueue.getMessage();
         if (orderId == null) {
             log.info("Order queue is empty... sleeping");
             sleep();
         } else {
             orderService.processOrder(orderId);
         }
+        orderMessageQueue.deleteMessage(orderId);
     }
     
     private void sleep() {

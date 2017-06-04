@@ -18,6 +18,35 @@ This model is not suitable for integrations with the following constraints:
 - Reward response data is needed immediately. For example: the reward data is displayed
   immediately to the user or needs to be passed to a downstream synchronous process.
   
+  
+## Explanation
+
+The process is as follows:
+
+1. Save an Order to the database (See: [OrderService placeOrder method](?))
+  - Start database transaction
+  - Generate a unique public Order Reference Number to return to customers to track the order
+  - Generate a unique RaaS externalID that ensures duplicate requests do not count as separate RaaS orders
+    (this might happen due to retry logic or networking issues) and save in Order
+  - Commit transaction
+  
+2. Add the Order ID to a processing message queue
+
+3. Return the Order Reference Number to the customer
+
+4. Async worker reads Order IDs off the message queue for processing
+
+5. Process the Order (See: [OrderService processOrder method](?))
+  - Start database transaction
+  - Lock Order row in the database for update since we don't want Order's being processed in parallel
+  - Check that Order status is still unprocessed in case another Worker has processed the Order already
+    (this might happen for distributed message queues that don't guarantee exactly-once delivery).
+  - Send order request to RaaS API
+  - Save RaaS Order orderRefID to our Order
+  - Commit transaction
+  - Delete message from the queue (if an error occurs before or during delete, checking the Order status
+    before processing will prevent the Order from being processed twice)
+
 
 ## Running Example App
 
