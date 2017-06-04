@@ -57,7 +57,7 @@ mvn spring-boot:run
 
 ### Request
 
-```
+```bash
 curl -X POST http://localhost:8080/orders \
 -H 'Content-type: application/json' -d '{
   "amount": "100.00"
@@ -70,7 +70,7 @@ curl -X POST http://localhost:8080/orders \
 200 OK
 ```
 
-```
+```json
 {
   "referenceNumber": "0001-8743-019357"
 }
@@ -78,11 +78,11 @@ curl -X POST http://localhost:8080/orders \
 
 ### Show All Order Data
 
-```
+```bash
 curl http://localhost:8080/orders
 ```
 
-```
+```json
 [ {
   "amount" : 100.00,
   "raasExternalId" : "ed0ef356-14b0-4137-81a8-c93bfbc879fb",
@@ -95,6 +95,6 @@ curl http://localhost:8080/orders
     "name" : "Test User",
     "emailAddress" : "test@domain.com"
   }
-}
+}]
 ```
 
