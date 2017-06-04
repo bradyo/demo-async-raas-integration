@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Data
 public class FullOrderView {
 
+    private Long id;
     private BigDecimal amount;
     private String raasExternalId;
     private String raasOrderRefId;

@@ -14,6 +14,7 @@ public class OrderViewService {
     
     public FullOrderView createFullView(Order order) {
         FullOrderView fullOrderView = new FullOrderView();
+        fullOrderView.setId(order.getId());
         fullOrderView.setReferenceNumber(order.getReferenceNumber());
         fullOrderView.setAmount(order.getAmount());
         fullOrderView.setStatus(order.getStatus());

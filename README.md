@@ -79,6 +79,7 @@ curl http://localhost:8080/orders
 
 ```json
 [ {
+  "id": 1,
   "amount" : 100.00,
   "raasExternalId" : "62f410f3-7c34-4ffd-9aec-c4227cc0b15b",
   "raasOrderRefId" : null,
@@ -91,6 +92,7 @@ curl http://localhost:8080/orders
     "emailAddress" : "test@domain.com"
   }
 }, {
+  "id": 2,
   "amount" : 100.00,
   "raasExternalId" : "ed0ef356-14b0-4137-81a8-c93bfbc879fb",
   "raasOrderRefId" : "RA170604-256-11",
