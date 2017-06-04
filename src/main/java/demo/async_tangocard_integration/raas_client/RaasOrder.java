@@ -1,0 +1,10 @@
+package demo.async_tangocard_integration.raas_client;
+
+import lombok.Data;
+
+@Data
+public class RaasOrder {
+
+    public String referenceOrderID;
+
+}
