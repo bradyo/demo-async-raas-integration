@@ -1,27 +1,25 @@
 package demo.async_tangocard_integration.order;
 
-import demo.async_tangocard_integration.config.ApplicationConfig;
 import demo.async_tangocard_integration.raas_client.StubRaasClient;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationConfig.class, OrderControllerWebTestConfig.class})
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("integration-test")
 public class OrderControllerWebTest {
 
     @Autowired
@@ -29,22 +27,13 @@ public class OrderControllerWebTest {
     
     @Autowired
     private StubRaasClient stubRaasClient;
-    
+
     @Autowired
-    private WebApplicationContext context;
+    private TestRestTemplate testRestTemplate;
 
-    private MockMvc mvc;
-
-    @Before
-    public void setup() {
-        mvc = MockMvcBuilders
-            .webAppContextSetup(context)
-            .build();
-    }
-    
     @Test
     public void testOrderSuccess() throws Exception {
-        String stubReferenceNumber = "001-00-000001";
+        String stubReferenceNumber = "0001-0000-000001";
         stubReferenceNumberGenerator.setStubValue(stubReferenceNumber);
         
         String stubRaasRefId = "test123";
@@ -53,21 +42,16 @@ public class OrderControllerWebTest {
         String requestBody = "{\n" +
             "  \"amount\": \"100.00\"\n" +
             "}";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
         
-        MockHttpServletResponse response = mvc
-            .perform(
-                post("/orders")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestBody)
-            )
-            .andReturn()
-            .getResponse();
+        ResponseEntity<String> response = testRestTemplate.postForEntity( "/orders", request, String.class);
         
         String expectedResponseBody = "{\n" +
-            "  \"referenceNumber\": \"" + stubReferenceNumber + "\"\n" +
+            "  \"referenceNumber\" : \"0001-0000-000001\"\n" +
             "}";
-        
-        assertThat(response.getStatus(), equalTo(200));
-        assertThat(response.getContentAsString(), equalTo(expectedResponseBody));
+        assertThat(response.getStatusCodeValue(), equalTo(200));
+        assertThat(response.getBody(), equalTo(expectedResponseBody));
     }
 }

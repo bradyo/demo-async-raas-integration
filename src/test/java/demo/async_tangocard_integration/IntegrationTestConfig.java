@@ -1,12 +1,17 @@
-package demo.async_tangocard_integration.order;
+package demo.async_tangocard_integration;
 
+import demo.async_tangocard_integration.order.ReferenceNumberGenerator;
+import demo.async_tangocard_integration.order.StubReferenceNumberGenerator;
 import demo.async_tangocard_integration.raas_client.StubRaasClient;
 import demo.async_tangocard_integration.raas_client.RaasClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-public class OrderControllerWebTestConfig {
+@Profile("integration-test")
+public class IntegrationTestConfig {
     
     @Bean
     public StubReferenceNumberGenerator stubReferenceNumberGenerator() {
@@ -14,8 +19,9 @@ public class OrderControllerWebTestConfig {
     }
     
     @Bean
+    @Primary
     public ReferenceNumberGenerator referenceNumberGenerator() {
-        return new StubReferenceNumberGenerator();
+        return stubReferenceNumberGenerator();
     }
 
     @Bean
@@ -24,8 +30,8 @@ public class OrderControllerWebTestConfig {
     }
 
     @Bean
-    public RaasClient raasClient(StubRaasClient stubRaasClient) {
-        return stubRaasClient;
-     
+    @Primary
+    public RaasClient raasClient() {
+        return stubRaasClient();
     }
 }

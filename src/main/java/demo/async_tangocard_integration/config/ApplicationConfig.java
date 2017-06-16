@@ -9,12 +9,14 @@ import demo.async_tangocard_integration.raas_client.HttpRaasClientFactory;
 import demo.async_tangocard_integration.raas_client.RaasClientSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
 @Configuration
 public class ApplicationConfig {
-    
+
     @Bean
+    @Profile("!integration-test")
     public ReferenceNumberGenerator referenceNumberGenerator() {
         return new RandomReferenceNumberGenerator();
     }
@@ -23,8 +25,9 @@ public class ApplicationConfig {
     public MessageQueue<Long> orderMessageQueue() {
         return new InMemoryMessageQueueFactory<Long>().create();
     }
-    
+
     @Bean
+    @Profile("!integration-test")
     public RaasClient raasClient(Environment environment) {
         RaasClientSettings settings = new RaasClientSettings();
         settings.setBaseUrl(environment.getProperty("raasClient.baseUrl"));
