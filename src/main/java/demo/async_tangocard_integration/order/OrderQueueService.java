@@ -1,6 +1,6 @@
 package demo.async_tangocard_integration.order;
 
-import demo.async_tangocard_integration.lib.message_queue.MessageQueue;
+import demo.async_tangocard_integration.message_queue.MessageQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

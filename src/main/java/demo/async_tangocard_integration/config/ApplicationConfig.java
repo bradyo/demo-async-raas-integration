@@ -1,16 +1,23 @@
 package demo.async_tangocard_integration.config;
 
-import demo.async_tangocard_integration.lib.message_queue.InMemoryMessageQueueFactory;
-import demo.async_tangocard_integration.lib.message_queue.MessageQueue;
-import demo.async_tangocard_integration.lib.raas_client.RaasClient;
-import demo.async_tangocard_integration.lib.raas_client.RaasClientFactory;
-import demo.async_tangocard_integration.lib.raas_client.RaasClientSettings;
+import demo.async_tangocard_integration.message_queue.InMemoryMessageQueueFactory;
+import demo.async_tangocard_integration.message_queue.MessageQueue;
+import demo.async_tangocard_integration.order.RandomReferenceNumberGenerator;
+import demo.async_tangocard_integration.order.ReferenceNumberGenerator;
+import demo.async_tangocard_integration.raas_client.RaasClient;
+import demo.async_tangocard_integration.raas_client.HttpRaasClientFactory;
+import demo.async_tangocard_integration.raas_client.RaasClientSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
 public class ApplicationConfig {
+    
+    @Bean
+    public ReferenceNumberGenerator referenceNumberGenerator() {
+        return new RandomReferenceNumberGenerator();
+    }
     
     @Bean
     public MessageQueue<Long> orderMessageQueue() {
@@ -24,6 +31,6 @@ public class ApplicationConfig {
         settings.setPlatformName(environment.getProperty("raasClient.platformName"));
         settings.setApiKey(environment.getProperty("raasClient.apiKey"));
         
-        return new RaasClientFactory().create(settings);
+        return new HttpRaasClientFactory().create(settings);
     }
 }

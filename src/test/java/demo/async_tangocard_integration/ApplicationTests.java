@@ -1,4 +1,4 @@
-package demo.asynctangocard;
+package demo.async_tangocard_integration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

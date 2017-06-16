@@ -1,9 +1,9 @@
-package demo.async_tangocard_integration.lib.raas_client;
+package demo.async_tangocard_integration.raas_client;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 
-public class RaasClientFactory {
+public class HttpRaasClientFactory {
     
     public RaasClient create(RaasClientSettings settings) {
         RestTemplate restTemplate = new RestTemplateBuilder()
@@ -11,7 +11,7 @@ public class RaasClientFactory {
             .basicAuthorization(settings.getPlatformName(), settings.getApiKey())
             .build();
         
-        return new RaasClient(restTemplate);
+        return new HttpRaasClient(restTemplate);
     }
     
 }

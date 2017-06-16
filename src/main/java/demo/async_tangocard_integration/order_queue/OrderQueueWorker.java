@@ -1,6 +1,6 @@
 package demo.async_tangocard_integration.order_queue;
 
-import demo.async_tangocard_integration.lib.message_queue.MessageQueue;
+import demo.async_tangocard_integration.message_queue.MessageQueue;
 import demo.async_tangocard_integration.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;

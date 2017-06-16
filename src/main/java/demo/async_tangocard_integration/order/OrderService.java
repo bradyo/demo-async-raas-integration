@@ -2,10 +2,10 @@ package demo.async_tangocard_integration.order;
 
 import demo.async_tangocard_integration.config.RaasSettings;
 import demo.async_tangocard_integration.user.User;
-import demo.async_tangocard_integration.lib.raas_client.RaasClient;
-import demo.async_tangocard_integration.lib.raas_client.RaasOrder;
-import demo.async_tangocard_integration.lib.raas_client.RaasOrderCriteria;
-import demo.async_tangocard_integration.lib.raas_client.RaasRecipientInfoCriteria;
+import demo.async_tangocard_integration.raas_client.RaasClient;
+import demo.async_tangocard_integration.raas_client.RaasOrder;
+import demo.async_tangocard_integration.raas_client.RaasOrderCriteria;
+import demo.async_tangocard_integration.raas_client.RaasRecipientInfoCriteria;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +77,7 @@ public class OrderService {
 
             raasOrderCriteria.setSendEmail(true); // send reward email though RaaS
 
-            RaasOrder raasOrder = raasClient.postOrder(raasOrderCriteria);
+            RaasOrder raasOrder = raasClient.createOrder(raasOrderCriteria);
 
             order.setStatus(OrderStatus.PROCESSED);
             order.setRaasOrderRefId(raasOrder.getReferenceOrderID());
