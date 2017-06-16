@@ -112,7 +112,7 @@ The process is as follows:
 
 ## Design
 
-This example uses [Ports-and-Adapters architecture](chttp://alistair.cockburn.us/Hexagonal+architecture) to
+This example uses [Ports-and-Adapters architecture](http://alistair.cockburn.us/Hexagonal+architecture) to
 integrate with the RaaS API. This architecture makes infrastructural components "pluggable" using "Port" interfaces
 closely modeled against the application domain. 
 
@@ -127,11 +127,4 @@ such as success, errors, or timeouts.
 Integration testing the application using `RaasClient` mock adapters combined with functional testing 
 of the `HttpRaasClient` adapter against the RaaS API Sandbox will ensure things will work as expected 
 when we plug in the `HttpRaasClient` adapter in production. 
-
-
-## Development Profile
-
-
-### Testing
-
 
