@@ -1,7 +1,6 @@
 package demo.async_tangocard_integration.raas_client;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**

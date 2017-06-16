@@ -1,6 +1,7 @@
 package demo.async_tangocard_integration.order;
 
 import demo.async_tangocard_integration.user.User;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "orders")
+@Builder
 public class Order {
     
     @Id

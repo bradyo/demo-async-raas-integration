@@ -1,11 +1,13 @@
 package demo.async_tangocard_integration.order;
 
 import demo.async_tangocard_integration.user.UserView;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
 public class FullOrderView {
 
     private Long id;

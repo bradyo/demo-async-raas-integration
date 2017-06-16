@@ -7,28 +7,28 @@ import org.springframework.stereotype.Service;
 public class OrderViewService {
     
     public OrderView createView(Order order) {
-        OrderView orderView = new OrderView();
-        orderView.setReferenceNumber(order.getReferenceNumber());
-        return orderView;
+        return OrderView.builder()
+            .referenceNumber(order.getReferenceNumber())
+            .build();
     }
     
     public FullOrderView createFullView(Order order) {
-        FullOrderView fullOrderView = new FullOrderView();
-        fullOrderView.setId(order.getId());
-        fullOrderView.setReferenceNumber(order.getReferenceNumber());
-        fullOrderView.setAmount(order.getAmount());
-        fullOrderView.setStatus(order.getStatus());
-        fullOrderView.setRaasExternalId(order.getRaasExternalId());
-        fullOrderView.setRaasOrderRefId(order.getRaasOrderRefId());
-        fullOrderView.setTries(order.getTries());
-
-        UserView userView = new UserView();
-        userView.setId(order.getUser().getId());
-        userView.setName(order.getUser().getName());
-        userView.setEmailAddress(order.getUser().getEmailAddress());
-        fullOrderView.setUser(userView);
-        
-        return fullOrderView;
+        return FullOrderView.builder()
+            .id(order.getId())
+            .referenceNumber(order.getReferenceNumber())
+            .amount(order.getAmount())
+            .status(order.getStatus())
+            .raasExternalId(order.getRaasExternalId())
+            .raasOrderRefId(order.getRaasOrderRefId())
+            .tries(order.getTries())
+            .user(
+                UserView.builder()
+                    .id(order.getUser().getId())
+                    .name(order.getUser().getName())
+                    .emailAddress(order.getUser().getEmailAddress())
+                    .build()
+            )
+            .build();
     }
     
 }
