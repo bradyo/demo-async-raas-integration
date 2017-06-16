@@ -77,7 +77,19 @@ curl http://localhost:8080/internal/orders
 }]
 ```
 
+## Run Tests
 
+### Unit/Integration Tests
+
+```
+mvn test
+```
+
+### RaaS Http Client Functional Test
+
+```
+mvn test -Dtest-groups=http-raas-client-functional-tests
+```
   
 ## Explanation
 

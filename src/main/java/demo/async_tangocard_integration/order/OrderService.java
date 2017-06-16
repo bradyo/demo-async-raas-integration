@@ -33,18 +33,16 @@ public class OrderService {
         // This is our public facing order reference number. We might show this to the customer
         // showing confirmation that the order has been placed.
         String referenceNumber = referenceNumberGenerator.generate();
-
-        // Generate a unique externalId value that is used to de-dupe RaaS order requests.
-        String raasExternalId = UUID.randomUUID().toString();
         
-        Order order = Order.builder()
-            .raasExternalId(raasExternalId)
-            .user(user)
-            .amount(amount)
-            .referenceNumber(referenceNumber)
-            .status(OrderStatus.NEW)
-            .tries(0)
-            .build();
+        Order order = new Order();
+        order.setUser(user);
+        order.setAmount(amount);
+        order.setReferenceNumber(referenceNumber);
+        order.setStatus(OrderStatus.NEW);
+        order.setTries(0);
+        
+        // Generate a unique externalId value that is used to de-dupe RaaS order requests.
+        order.setRaasExternalId(UUID.randomUUID().toString());
         
         orderRepository.save(order);
         
@@ -65,20 +63,19 @@ public class OrderService {
 
         // Send the actual RaaS order request
         try {
-            RaasOrderCriteria raasOrderCriteria = RaasOrderCriteria.builder()
-                .externalRefID(order.getRaasExternalId())
-                .customerIdentifier(raasSettings.getCustomerIdentifier())
-                .accountIdentifier(raasSettings.getAccountIdentifier())
-                .utid(raasSettings.getUtid())
-                .amount(order.getAmount().doubleValue())
-                .recipient(
-                    RaasRecipientInfoCriteria.builder()
-                    .email(order.getUser().getEmailAddress())
-                    .firstName(order.getUser().getName())
-                    .build()
-                )
-                .sendEmail(true) // send reward email though RaaS
-                .build();
+            RaasOrderCriteria raasOrderCriteria = new RaasOrderCriteria();
+            raasOrderCriteria.setExternalRefID(order.getRaasExternalId());
+            raasOrderCriteria.setCustomerIdentifier(raasSettings.getCustomerIdentifier());
+            raasOrderCriteria.setAccountIdentifier(raasSettings.getAccountIdentifier());
+            raasOrderCriteria.setUtid(raasSettings.getUtid());
+            raasOrderCriteria.setAmount(order.getAmount().doubleValue());
+
+            RaasRecipientInfoCriteria recipient = new RaasRecipientInfoCriteria();
+            recipient.setEmail(order.getUser().getEmailAddress());
+            recipient.setFirstName(order.getUser().getName());
+            raasOrderCriteria.setRecipient(recipient);
+
+            raasOrderCriteria.setSendEmail(true); // send reward email though RaaS
 
             RaasOrder raasOrder = raasClient.createOrder(raasOrderCriteria);
 

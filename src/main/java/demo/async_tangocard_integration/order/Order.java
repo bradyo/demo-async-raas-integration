@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "orders")
-@Builder
 public class Order {
     
     @Id
