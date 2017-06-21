@@ -129,12 +129,13 @@ integrate with the RaaS API. This architecture makes infrastructural components 
 closely modeled against the application domain. 
 
 When running the application locally during development, we don't want to be unnecessarily bound to 
-the RaaS API sandbox environment. Instead, we swap in a `Raas` since we only want to use the sandbox 
-environment for testing our 
+the RaaS API sandbox environment. Instead, we swap in a `StubRaasClient` so we can better control the
+behavior of the adapter and not be dependent on an external service during development. The `HttpRaasClient` 
+adapter, which will be used in a production configuration, can be fully tested using the RaaS API sandbox environment.
 
-For application integration tests, we can control the application logic by plugging in various `RaasClient` 
+For application integration tests, we can control the application logic by plugging in different `RaasClient` 
 "Adapters" with different runtime behaviors. This way we can simulate responses from the `RaasClient`
-such as success, errors, or timeouts.
+such as success, errors, or timeouts and verify how our application behaves.
 
 Integration testing the application using `RaasClient` mock adapters combined with functional testing 
 of the `HttpRaasClient` adapter against the RaaS API Sandbox will ensure things will work as expected 
