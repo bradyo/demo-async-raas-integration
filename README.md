@@ -130,8 +130,8 @@ closely modeled against the application domain.
 
 When running the application locally during development, we don't want to be unnecessarily bound to 
 the RaaS API sandbox environment. Instead, we swap in a `StubRaasClient` so we can better control the
-behavior of the adapter and not be dependent on an external service during development. The `HttpRaasClient` 
-adapter, which will be used in a production configuration, can be fully tested using the RaaS API sandbox environment.
+behavior of the adapter and not be dependent on an external service during development (see [OrderControllerWebTest.java](https://github.com/bradyo/demo-async-raas-integration/blob/master/src/test/java/demo/async_tangocard_integration/order/OrderControllerWebTest.java)). The `HttpRaasClient` 
+adapter, which will be used in a production configuration, can be fully tested using the RaaS API sandbox environment (see [HttpRaasClientFunctionalTest](https://github.com/bradyo/demo-async-raas-integration/blob/master/src/test/java/demo/async_tangocard_integration/raas_client/HttpRaasClientFunctionalTest.java)).
 
 For application integration tests, we can control the application logic by plugging in different `RaasClient` 
 "Adapters" with different runtime behaviors. This way we can simulate responses from the `RaasClient`
