@@ -1,6 +1,6 @@
 # Demo Async RaaS API Integration Application
 
-This application demonstrates a bulletproof asynchronous [Tango Card RaaS API](https://api.tangocard.com/raas/v2/) 
+This application demonstrates a bulletproof asynchronous [Tango Card RaaS API](https://integration-www.tangocard.com/raas_api_console/v2/) 
 integration for sending digital gift card rewards.
 
 In this model, we create an order transaction in the database and queue up the order for 
